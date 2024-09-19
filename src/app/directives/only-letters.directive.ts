@@ -1,21 +1,48 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: 'input[OnlyLetters]',
+  selector: '[OnlyLetters]',
   standalone: true
 })
 export class OnlyLettersDirective {
 
-  constructor(private readonly elRef:ElementRef) { }
-  @HostListener('input', ['$event'])
-  onChangeInput(event: Event): void {
-    // console.log('TESTS', this.elRef.nativeElement.value);
-    const lettersOnly = /[^a-zA-Z]*/g;
-    const initValue = this.elRef.nativeElement.value;
-    this.elRef.nativeElement.value = initValue.replace(lettersOnly, '');
-    if(initValue !== this.elRef.nativeElement.value) {
-      event.stopPropagation();
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+  @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+    return this.validateCharacter(event);
+  }
+
+  validateCharacter(event: KeyboardEvent) {
+    console.log('event => ', event);
+    const code = event.keyCode? event.keyCode: 0;
+    if (code === 8) {
+      return true;
+    } else if (code >= 65 && code <= 90) { // A to Z
+      return true;
+    } else if (code >= 97 && code <= 122) { // a to z
+      return true;
+    } else if (event.ctrlKey) { // for ctrl + v
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
+    this.validateFields(event);
+  }
+
+  validateFields(event: KeyboardEvent) {
+    /* 
+        Avoid direct DOM updation. better to use Renderer2 
+        this.el.nativeElement.value = this.el.nativeElement.value.replace(/[^a-zA-Z ]/g, '').replace(/\s/g, '');
+      */
+    this.renderer.setProperty(
+      this.el.nativeElement,
+      'value',
+      this.el.nativeElement.value.replace(/[^a-zA-Z ]/g, '').replace(/\s/g, '')
+    );
+    event.preventDefault();
   }
 
 }
