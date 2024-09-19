@@ -1,0 +1,27 @@
+<article class="MuiBox-root css-14z26ix"
+    style="opacity: 1; transform: none; transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1), transform 333ms cubic-bezier(0.4, 0, 0.2, 1);">
+    <div class="MuiBox-root css-psx3e5"><img class="MuiBox-root css-1f12kxr"
+            [src]="character?.image" alt="Goku"></div>
+    <div class="MuiBox-root css-1wlwttw">
+        <div class="MuiBox-root css-r6z5ec">
+            <h2 class="MuiTypography-root MuiTypography-h2 css-bd6kx">{{character?.name}}</h2>
+            <p class="MuiTypography-root MuiTypography-body1 css-15oqi6b">
+                {{character?.race}} - {{character?.gender}}
+            </p>
+        </div>
+        <div class="MuiStack-root css-1821gv5">
+            <div class="MuiBox-root css-0">
+                <p class="MuiTypography-root MuiTypography-body1 css-1tvhnlt">Base KI:</p><span
+                    class="MuiTypography-root MuiTypography-body1 css-1ar1x7i">{{character?.ki}}</span>
+            </div>
+            <div class="MuiBox-root css-0">
+                <p class="MuiTypography-root MuiTypography-body1 css-1tvhnlt">Total KI:</p><span
+                    class="MuiTypography-root MuiTypography-body1 css-1ar1x7i">{{character?.maxKi}}</span>
+            </div>
+            <div class="MuiBox-root css-0">
+                <p class="MuiTypography-root MuiTypography-body1 css-1tvhnlt">Afilliation:</p><span
+                    class="MuiTypography-root MuiTypography-body1 css-1ar1x7i">{{character?.affiliation}}</span>
+            </div>
+        </div>
+    </div>
+</article>

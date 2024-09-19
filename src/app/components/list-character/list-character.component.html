@@ -1,0 +1,25 @@
+<main class="MuiBox-root css-i2n2aa">
+    <div class="MuiBox-root css-r5gf5s">
+        <div class="MuiBox-root css-13hm4sx">
+            <h1 class="MuiTypography-root MuiTypography-h1 css-10e2dwe">The Dragon Ball API</h1>
+            <div class="box">
+                <form name="search">
+                    <input
+                        type="text"
+                        class="input"
+                        placeholder="Buscar por Nombre.."
+                        [(ngModel)]="filterCharacter"
+                        name="filterCharacter"
+                        onmouseout="this.value = ''; this.blur();"
+                        OnlyLetters
+                    />
+                </form>
+            </div>
+        </div>
+        <div class="list-characters">
+            <div *ngFor="let character of listCharacters | filterCharacters: filterCharacter; let index = index">
+                <app-card-character [character]="character"></app-card-character>
+            </div>
+        </div>
+    </div>
+</main>
